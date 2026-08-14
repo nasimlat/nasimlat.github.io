@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Насим Латыпов — боты, сайты, сети</title>
+<meta name="description" content="Учитель физики в сельской школе в Башкортостане. Телеграм-боты, сайты, своя маршрутизация. Работы, исходники, измерения.">
+<meta property="og:title" content="Насим Латыпов — боты, сайты, сети">
+<meta property="og:description" content="Учитель физики в сельской школе. Пишу ботов и сайты, держу свою сеть. Здесь то, что работает прямо сейчас.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nasimlat.github.io/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F3EE;
+    --grid:rgba(120,133,180,.16);
+    --ink:#1B2430;
+    --ink-soft:#5A6472;
+    --pen:#A82A21;
+    --pen-bright:#C8342B;
+    --link:#2F4F8F;
+    --gutter:170px;
+    --gap:38px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 24px);
+    color:var(--ink);
+    font-family:"PT Serif",Georgia,"Times New Roman",serif;
+    font-size:18px;
+    line-height:1.62;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(47,79,143,.35)}
+  a:hover{border-bottom-color:var(--link)}
+  a:focus-visible{outline:2px solid var(--pen-bright);outline-offset:3px;border-radius:2px}
+
+  .page{max-width:1060px;margin:0 auto;padding:0 28px 96px}
+
+  /* ——— поле тетради: непрерывная красная линия сверху донизу ——— */
+  .sheet{position:relative}
+  .sheet::before{
+    content:"";position:absolute;top:0;bottom:0;left:calc(var(--gutter) - var(--gap)/2);
+    width:2px;background:var(--pen-bright);opacity:.55;
+    transform:scaleY(0);transform-origin:top;
+    animation:rule 900ms cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes rule{to{transform:scaleY(1)}}
+
+  .band{
+    display:grid;grid-template-columns:var(--gutter) 1fr;gap:var(--gap);
+    padding:52px 0;border-top:1px solid rgba(27,36,48,.14);
+    opacity:0;transform:translateY(14px);
+    animation:rise 620ms cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  .band:first-child{border-top:0}
+  .band:nth-child(1){animation-delay:120ms}
+  .band:nth-child(2){animation-delay:220ms}
+  .band:nth-child(3){animation-delay:300ms}
+  .band:nth-child(4){animation-delay:360ms}
+  .band:nth-child(5){animation-delay:410ms}
+  .band:nth-child(6){animation-delay:450ms}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ——— левая колонка: измерение, красным, как пометка на полях ——— */
+  .mark{text-align:right;padding-top:.55em}
+  .mark__value{
+    font-family:"PT Mono",ui-monospace,"Courier New",monospace;
+    font-size:15px;line-height:1.35;color:var(--pen);
+    letter-spacing:.01em;
+  }
+  .mark__label{
+    display:block;margin-top:.35em;
+    font-family:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* ——— шапка ——— */
+  .band--head{padding-top:88px}
+  .handle{
+    font-family:"PT Mono",ui-monospace,monospace;font-size:15px;color:var(--pen);
+  }
+  h1{
+    margin:0 0 .28em;
+    font-family:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+    font-weight:700;font-size:clamp(46px,9vw,88px);line-height:.94;
+    letter-spacing:-.005em;text-transform:uppercase;
+  }
+  .lead{margin:0;font-size:clamp(19px,2.4vw,23px);line-height:1.5;max-width:30em}
+  .lead em{font-style:italic;color:var(--ink-soft)}
+
+  h2{
+    margin:0 0 1.1em;
+    font-family:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+    font-weight:700;font-size:15px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink);
+  }
+  h3{
+    margin:0 0 .22em;
+    font-family:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+    font-weight:700;font-size:27px;line-height:1.14;letter-spacing:.005em;
+  }
+  h3 a{border-bottom:0;color:var(--ink)}
+  h3 a:hover{color:var(--pen)}
+  p{margin:0 0 .85em}
+  p:last-child{margin-bottom:0}
+
+  /* ——— работы ——— */
+  .work{padding:22px 0 26px;border-top:1px dashed rgba(27,36,48,.2)}
+  .work:first-of-type{padding-top:0;border-top:0}
+  .work__meta{
+    margin:.1em 0 .7em;
+    font-family:"PT Mono",ui-monospace,monospace;font-size:13.5px;
+    color:var(--ink-soft);letter-spacing:.01em;
+  }
+  .work__reading{color:var(--pen)}
+  .work__links{margin-top:.7em;font-family:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;font-size:17px}
+  .work__links a{margin-right:1.3em}
+
+  .note{color:var(--ink-soft);font-size:16.5px}
+  .list{margin:0;padding:0;list-style:none}
+  .list li{padding:.5em 0;border-top:1px dashed rgba(27,36,48,.2)}
+  .list li:first-child{border-top:0}
+  .list b{font-weight:700}
+
+  footer{
+    margin-top:14px;padding-top:26px;border-top:1px solid rgba(27,36,48,.14);
+    font-family:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+    font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);
+  }
+
+  @media (max-width:760px){
+    body{font-size:17px}
+    .page{padding:0 20px 64px}
+    .sheet::before{display:none}
+    .band{grid-template-columns:1fr;gap:14px;padding:38px 0}
+    .band--head{padding-top:52px}
+    .mark{text-align:left;padding-top:0}
+    .mark__value{display:inline}
+    .mark__label{display:inline;margin-left:.7em}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .band,.sheet::before{animation:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+<div class="sheet">
+
+  <section class="band band--head">
+    <div class="mark"><span class="handle">nasimlat</span></div>
+    <div>
+      <h1>Насим<br>Латыпов</h1>
+      <p class="lead">Учитель физики в сельской школе в Башкортостане. Пишу ботов и сайты, держу свою сеть. Здесь то, что работает прямо сейчас.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="mark">
+      <span class="mark__label">Работы</span>
+    </div>
+    <div>
+      <h2>Что сделано</h2>
+
+      <article class="work">
+        <h3><a href="https://t.me/shepnibot">Шепни</a></h3>
+        <p class="work__meta"><span class="work__reading">47 тестов</span> · Python · python-telegram-bot · SQLite · Docker · GitHub Actions</p>
+        <p>Даёшь боту номер телефона — получаешь готовые ссылки на чат в Telegram и WhatsApp. Сохранять контакт не нужно. Работает и внутри чужого чата: <code>@shepnibot 89173334455</code> — и ссылки уходят собеседнику, не выходя из переписки.</p>
+        <p>Сервер стоит в сети, откуда Telegram недоступен. Трафик бота идёт через SOCKS5-туннель на второй хост — одной переменной окружения, без единой правки в логике бота. Деплой на каждый пуш в <code>main</code>.</p>
+        <p class="work__links"><a href="https://t.me/shepnibot">Бот</a><a href="https://github.com/nasimlat/Shepnibot">Исходники</a></p>
+      </article>
+
+      <article class="work">
+        <h3><a href="https://уфадез.рф/">уфадез.рф</a></h3>
+        <p class="work__meta"><span class="work__reading">на боевом домене</span> · вёрстка · Яндекс.Директ</p>
+        <p>Сайт службы дезинфекции: собран под контекстную рекламу и выведен на боевой домен. Работа клиентская, исходники закрыты — смотреть можно сам сайт.</p>
+        <p class="work__links"><a href="https://уфадез.рф/">Открыть сайт</a></p>
+      </article>
+
+      <article class="work">
+        <h3><a href="https://github.com/nasimlat/whatsappni">whatsappni</a></h3>
+        <p class="work__meta"><span class="work__reading">с 2021 года</span> · Python</p>
+        <p>Предшественник Шепни — тот же продукт под старым именем. Оставлен работать, пока им пользуются: у людей на него живые ссылки.</p>
+        <p class="work__links"><a href="https://github.com/nasimlat/whatsappni">Исходники</a></p>
+      </article>
+
+      <article class="work">
+        <h3><a href="https://github.com/nasimlat/distrib_calc">Распределённый вычислитель</a></h3>
+        <p class="work__meta"><span class="work__reading">Go</span> · горутины · очередь задач</p>
+        <p>Арифметическое выражение разбирается на отдельные операции, они расходятся по воркерам и считаются параллельно, сервер собирает результат. Задача учебная, но взята ради конкурентности в Go — а не ради арифметики.</p>
+        <p class="work__links"><a href="https://github.com/nasimlat/distrib_calc">Исходники</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="mark">
+      <span class="mark__value">217</span>
+      <span class="mark__label">маршрутов</span>
+    </div>
+    <div>
+      <h2>Сеть</h2>
+      <p>Домой интернет приходит по LTE — около мегабита. Чтобы на нём можно было работать, маршрутизация собрана вручную: WireGuard и AmneziaWG на роутере, туннельный список на 217 маршрутов, подобранный MTU. Мимо туннеля идёт всё, чему там делать нечего.</p>
+      <p>Прямой порт до европейского сервера в какой-то момент выжгли. Вместо переезда поднят UDP-ретранслятор на своём московском сервере: роутер стучится к нему, маршруты и MTU не тронуты. Школьный сервер живёт за Tailscale и доступен, даже когда у него меняется адрес.</p>
+      <p class="note">Отдельная работа — измерить, где теряется скорость: модем это или туннель. Оказалось, модем: туннель отдаёт 99% того, что до него доходит.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="mark">
+      <span class="mark__value">2022–2023</span>
+      <span class="mark__label">Практикум</span>
+    </div>
+    <div>
+      <h2>Учебное</h2>
+      <p>Питон-бэкенд в Яндекс Практикуме. Открыто то, что имеет смысл смотреть:</p>
+      <ul class="list">
+        <li><b><a href="https://github.com/nasimlat/foodgram-project-react">foodgram</a></b> — дипломный проект: сервис рецептов на Django REST и React, сборка в Docker, деплой через GitHub Actions.</li>
+        <li><b><a href="https://github.com/nasimlat/yamdb_final">yamdb</a></b> — командная работа: REST API для отзывов с JWT-авторизацией, docker-compose, CI/CD.</li>
+        <li><b><a href="https://github.com/nasimlat/homework_bot">homework_bot</a></b> — бот, который опрашивает API и сообщает о смене статуса: логирование, свои исключения, тесты.</li>
+      </ul>
+      <p class="note">Остальные спринты остались закрытыми — они повторяют то же самое на более ранней стадии.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="mark">
+      <span class="mark__value">5</span>
+      <span class="mark__label">площадок</span>
+    </div>
+    <div>
+      <h2>Кроме кода</h2>
+      <p>Веду блог «туЗемский»: девяностые, школа изнутри, откуда взялись слова. Основная площадка — Дзен, дальше Телеграм, ВКонтакте, Пикабу и Макс.</p>
+      <p class="work__links"><a href="https://dzen.ru/tuzemsky">Читать на Дзене</a></p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="mark">
+      <span class="mark__label">Связь</span>
+    </div>
+    <div>
+      <h2>Написать</h2>
+      <p class="work__links"><a href="https://t.me/nasimlat">Телеграм</a><a href="https://github.com/nasimlat">GitHub</a></p>
+      <footer>Насим Латыпов · Башкортостан · 2026</footer>
+    </div>
+  </section>
+
+</div>
+</main>
+</body>
+</html>
