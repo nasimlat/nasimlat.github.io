@@ -9,6 +9,10 @@
 <meta property="og:description" content="Учитель физики в сельской школе. Пишу ботов и сайты, держу свою сеть. Здесь то, что работает прямо сейчас.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nasimlat.github.io/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F2F3EE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -41,12 +45,13 @@
   a:hover{border-bottom-color:var(--link)}
   a:focus-visible{outline:2px solid var(--pen-bright);outline-offset:3px;border-radius:2px}
 
-  .page{max-width:1060px;margin:0 auto;padding:0 28px 96px}
+  /* ширина под композицию «текст + поля»: 34em текста + gap + поля */
+  .page{max-width:876px;margin:0 auto;padding:0 28px 96px}
 
   /* ——— поле тетради: непрерывная красная линия сверху донизу ——— */
   .sheet{position:relative}
   .sheet::before{
-    content:"";position:absolute;top:0;bottom:0;left:calc(var(--gutter) - var(--gap)/2);
+    content:"";position:absolute;top:0;bottom:0;right:calc(var(--gutter) - var(--gap)/2);
     width:2px;background:var(--pen-bright);opacity:.55;
     transform:scaleY(0);transform-origin:top;
     animation:rule 900ms cubic-bezier(.22,.61,.36,1) forwards;
@@ -54,7 +59,7 @@
   @keyframes rule{to{transform:scaleY(1)}}
 
   .band{
-    display:grid;grid-template-columns:var(--gutter) 1fr;gap:var(--gap);
+    display:grid;grid-template-columns:1fr var(--gutter);gap:var(--gap);
     padding:52px 0;border-top:1px solid rgba(27,36,48,.14);
     opacity:0;transform:translateY(14px);
     animation:rise 620ms cubic-bezier(.22,.61,.36,1) forwards;
@@ -68,8 +73,9 @@
   .band:nth-child(6){animation-delay:450ms}
   @keyframes rise{to{opacity:1;transform:none}}
 
-  /* ——— левая колонка: измерение, красным, как пометка на полях ——— */
-  .mark{text-align:right;padding-top:.55em}
+  /* ——— поля справа: измерение, красным, как пометка учителя ——— */
+  /* в разметке пометка идёт первой, на экране уезжает за линию поля */
+  .mark{order:2;text-align:left;padding-top:.55em;padding-left:calc(var(--gap)/2 + 12px)}
   .mark__value{
     font-family:"PT Mono",ui-monospace,"Courier New",monospace;
     font-size:15px;line-height:1.35;color:var(--pen);
@@ -142,7 +148,7 @@
     .sheet::before{display:none}
     .band{grid-template-columns:1fr;gap:14px;padding:38px 0}
     .band--head{padding-top:52px}
-    .mark{text-align:left;padding-top:0}
+    .mark{order:0;text-align:left;padding-top:0;padding-left:0}
     .mark__value{display:inline}
     .mark__label{display:inline;margin-left:.7em}
   }
