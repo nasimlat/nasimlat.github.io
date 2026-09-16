@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Свод погреба — Насим Латыпов</title>
+<meta name="description" content="Расчёт кирпичного свода погреба: пролёт 2400 мм, кладка в перевязку 51 ряд, армирование дальнего фронтона. Дано, расчёт, что вышло на практике.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F2F3EE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="sheet">
+
+  <header class="row row--first">
+    <div class="body">
+      <p class="back"><a href="index.html">← nasimlat.ru</a></p>
+      <h1 class="h1--page" style="margin-top:14px">Свод погреба</h1>
+      <p class="lead" style="margin-top:18px">Кирпичный погреб со сводчатым перекрытием. Буздяк, Башкортостан. Дано → расчёт → что вышло на практике → где пересмотрел решение.</p>
+    </div>
+    <div class="margin"><span class="side">02 · тетрадь</span></div>
+  </header>
+
+  <section class="row">
+    <div class="body">
+      <h2>Дано</h2>
+      <div class="given">
+        <div><span>Пролёт в свету</span><b>2400 мм</b></div>
+        <div><span>Свод</span><b>R1240 / R1360</b></div>
+        <div><span>Толщина свода</span><b>120 мм</b></div>
+        <div><span>Кладка свода</span><b>51 ряд × 10</b></div>
+        <div><span>Кирпич</span><b>250×120×65, М150 F50</b></div>
+        <div><span>Раствор</span><b>М100, Ц:П = 1:5</b></div>
+      </div>
+    </div>
+    <div class="margin"></div>
+  </section>
+
+  <section class="row">
+    <div class="body">
+      <h2>Расчёт</h2>
+      <p>Дальний фронтон работает как подпорная стенка на всю высоту 2,24 м — держит грунт засыпки, а не только свой вес. Требуемая прочность кладки под такую нагрузку:</p>
+      <div class="steps" style="margin-top:18px">
+        <div>
+          <div class="steps__label">требуется</div>
+          <div class="steps__math">3,1–4,6 <b>кгс/см²</b></div>
+        </div>
+        <div>
+          <div class="steps__label">плоская кладка 250 мм даёт</div>
+          <div class="steps__math">2,2 <b>кгс/см²</b></div>
+        </div>
+        <div>
+          <div class="steps__label">вывод</div>
+          <div class="steps__math">запаса нет — нужно армирование</div>
+        </div>
+      </div>
+    </div>
+    <div class="margin"></div>
+  </section>
+
+  <section class="row">
+    <div class="body">
+      <h2>Что вышло на практике</h2>
+      <p>Дальний фронтон армируется Ø8 А500 через 3 ряда с заведением в боковые стены — 30 м арматуры. Кладка свода — в перевязку, а не кольцами: кольцевая разрезка нужна для длинных сводов с переставной опалубкой, на пролёте 2,4 м она не даёт ничего, кроме сплошной плоскости расслоения. Свод укорочен до цементного участка стен — стык цементной и глиняной кладки, главный риск трещины, этим снят полностью.</p>
+      <p style="margin-top:.85em">Кирпич из разборки старых стен в несущую кладку не идёт: свод, фронтон и перемычка — только новый покупной, 1200 штук. Старый кирпич — в забутку пазух и засыпку за фронтоном.</p>
+    </div>
+    <div class="margin"></div>
+  </section>
+
+  <div class="figure">
+    <div class="figure__num">1200</div>
+    <div class="figure__note">кирпичей<br>новый покупной, полнотелый<br>на свод + фронтон + перемычку</div>
+  </div>
+
+  <section class="row" style="border-top:0">
+    <div class="body">
+      <h2>Где пересмотрел</h2>
+      <p>Сначала рассматривалась деревянная б/у шпала как перекрытие. Отклонена не по несущей способности — по изгибу она проходит с запасом, — а по гниению в постоянно сырой засыпанной конструкции, парам креозота в непроветриваемом хранилище продуктов и невозможности осмотра или замены после засыпки.</p>
+    </div>
+    <div class="margin"></div>
+  </section>
+
+  <footer class="row">
+    <div class="body"><p class="meta">Графитом набрано, синим — ссылки, красным — измеренное.</p></div>
+    <div class="margin"><span class="page-num">стр. 3</span></div>
+  </footer>
+
+</main>
+</body>
+</html>
