@@ -1,0 +1,190 @@
+/* nasimlat.ru — тетрадь. Шаг сетки 28px, поле измерений 168px (на мобильном 48px). */
+
+:root {
+  --unit: 28px;
+  --paper: #F2F3EE;
+  --desk: #D9DAD2;
+  --ink: #2A2E33;
+  --ink-mute: #5A6472;
+  --link: #23407A;
+  --mark: #C8342B;
+  --rule: rgba(42, 46, 51, .2);
+  --hair: rgba(42, 46, 51, .14);
+  --cell: rgba(120, 133, 180, .15);
+  --margin-col: 168px;
+  --pad: 56px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #22262B;
+    --desk: #171A1E;
+    --ink: #DCE0E4;
+    --ink-mute: #9AA4B0;
+    --link: #9FBBEE;
+    --mark: #E2685C;
+    --rule: rgba(220, 224, 228, .22);
+    --hair: rgba(220, 224, 228, .14);
+    --cell: rgba(150, 170, 220, .1);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { color-scheme: light dark; }
+
+body {
+  margin: 0;
+  padding: var(--unit) 0 84px;
+  background: var(--desk);
+  color: var(--ink);
+  font: 400 18px/28px "PT Serif", Georgia, serif;
+  display: flex;
+  justify-content: center;
+}
+
+a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--mark); text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+
+/* Лист */
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 952px;
+  padding: 0 var(--pad) var(--pad);
+  background: var(--paper);
+  background-image:
+    repeating-linear-gradient(to right, var(--cell) 0 1px, transparent 1px var(--unit)),
+    repeating-linear-gradient(to bottom, var(--cell) 0 1px, transparent 1px var(--unit));
+  box-shadow: 0 1px 0 var(--rule), 0 18px 40px -30px rgba(42, 46, 51, .5);
+}
+
+/* Красная линия поля — не выключается на мобильном, поле сжимается */
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  right: calc(var(--pad) + var(--margin-col));
+  width: 1px;
+  background: var(--mark);
+}
+
+/* Строка: колонка текста + поле измерений */
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--margin-col);
+  border-top: 1px solid var(--rule);
+}
+.row > .body { padding: 27px var(--unit) var(--pad) 0; }
+.row > .margin { padding: 27px 0 var(--pad) 20px; }
+.row--open > .body { padding-bottom: 0; }
+
+header.row, .row--first { border-top: 0; padding-top: var(--pad); }
+
+/* Типографика */
+h1 {
+  margin: 0;
+  font: 700 84px/84px "PT Sans Narrow", "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+}
+h1.h1--page { font-size: 56px; line-height: 56px; }
+h2 {
+  margin: 0 0 var(--unit);
+  font: 700 15px/28px "PT Sans Narrow", "Arial Narrow", sans-serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+h3 {
+  margin: 0;
+  font: 700 27px/28px "PT Sans Narrow", "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+}
+p { margin: 0; max-width: 34em; text-wrap: pretty; }
+.lead { font-size: 21px; max-width: 22em; }
+.meta { font: 400 13.5px/28px "PT Mono", monospace; color: var(--ink-mute); max-width: none; }
+.measure { font: 400 15px/28px "PT Mono", monospace; color: var(--mark); }
+
+/* breadcrumb на подстраницах */
+.back { font: 400 13.5px/28px "PT Mono", monospace; }
+.back a { color: var(--ink-mute); text-decoration: none; border-bottom: 1px dotted var(--ink-mute); }
+.back a:hover { color: var(--mark); border-bottom-color: var(--mark); }
+
+/* Надпись вдоль линии поля */
+.side {
+  writing-mode: vertical-rl;
+  font: 400 13.5px/28px "PT Mono", monospace;
+  letter-spacing: .1em;
+  color: var(--ink-mute);
+}
+.side--mark { color: var(--mark); font-size: 15px; letter-spacing: .08em; }
+
+/* Оглавление с отбивкой */
+.toc { display: grid; }
+.toc__item { display: flex; align-items: baseline; gap: 8px; min-height: var(--unit); }
+.toc__item a {
+  font: 400 20px/28px "PT Sans Narrow", "Arial Narrow", sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.toc__item span.toc__item { color: var(--ink); }
+.toc__lead { flex: 1; border-bottom: 1px dotted rgba(42, 46, 51, .35); transform: translateY(-4px); }
+.toc__num { font: 400 13.5px/28px "PT Mono", monospace; color: var(--ink-mute); }
+
+/* Работы */
+.works { display: grid; gap: var(--unit); }
+.work--with-chart { display: grid; grid-template-columns: minmax(0, 1fr) 196px; gap: var(--unit); align-items: start; }
+
+/* Крупное число */
+.figure { border-bottom: 1px solid var(--mark); padding-top: var(--unit); display: flex; align-items: flex-end; gap: var(--unit); }
+.figure__num { font: 700 196px/196px "PT Sans Narrow", "Arial Narrow", sans-serif; }
+.figure__note { padding-bottom: 14px; font: 400 13.5px/28px "PT Mono", monospace; color: var(--ink-mute); }
+
+/* Таблица «дано» */
+.given { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--unit); font: 400 15px/27px "PT Mono", monospace; }
+.given div { display: flex; justify-content: space-between; border-bottom: 1px solid var(--hair); }
+.given span { color: var(--ink-mute); }
+
+/* Шаги вычисления */
+.steps { display: grid; gap: var(--unit); font-family: "PT Mono", monospace; }
+.steps__label { font-size: 15px; color: var(--ink-mute); }
+.steps__math { font-size: 21px; line-height: 28px; }
+.steps__math b { color: var(--mark); font-weight: 400; }
+
+/* Список ссылок под заголовком (кейс, «написать») */
+.linelist { display: flex; flex-wrap: wrap; gap: 28px; }
+.linelist a {
+  font: 400 27px/28px "PT Sans Narrow", "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+}
+
+/* Стек/команда моноширинным */
+code { font: 400 .88em/1.5 "PT Mono", monospace; background: var(--hair); padding: .1em .35em; border-radius: 2px; }
+
+svg { display: block; max-width: 100%; }
+
+footer.row > .body, footer.row > .margin { padding-bottom: 0; }
+footer .page-num { font: 400 13.5px/28px "PT Mono", monospace; color: var(--mark); }
+
+@media (max-width: 720px) {
+  :root { --margin-col: 48px; --pad: 20px; }
+  body { padding-top: 0; }
+  h1 { font-size: 42px; line-height: 42px; }
+  h1.h1--page { font-size: 36px; line-height: 42px; }
+  .figure__num { font-size: 84px; line-height: 84px; }
+  .figure { flex-wrap: wrap; gap: 0; }
+  .work--with-chart, .given, .row > .body { grid-template-columns: minmax(0, 1fr); }
+  .row > .body { padding-right: 14px; padding-bottom: var(--unit); }
+  .row > .margin { padding-left: 0; padding-bottom: var(--unit); }
+  .toc__item a { line-height: 44px; font-size: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .sheet { box-shadow: none; background-image: none; max-width: none; }
+}
